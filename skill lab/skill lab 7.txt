@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX_NODES 1000
+int parent[MAX_NODES];
+int rank[MAX_NODES];
+void initialize(int n) {
+    for(int i=1;i <=n;i++) {
+    parent[i]=i;
+    rank[i] = 0;
+}
+}
+int find(int x) {
+    if(x!=parent[x]) {
+        parent[x] = find(parent[x]);
+    }
+    return parent[x];
+}
+void unionSet(int x,int y) {
+    int rootX=find(x);
+    int rootY=find(y);
+    if(rootX!=rootY) {
+        if(rank[rootX]<rank[rootY]) {
+            parent[rootX]=rootY;
+        } else if (rank[rootX]> rank[rootY]) {
+            parent[rootY]=rootX;
+        }
+        else {
+            parent[rootX]=rootY;
+            rank[rootY]++;
+        }
+    }
+}
+int main() {
+    int maxNode =10;
+    initialize(maxNode);
+    unionSet(1,2);
+    unionSet(2,3);
+    unionSet(4,5);
+    unionSet(6,7);
+    unionSet(5,6);
+    unionSet(3,7);
+    printf("the representative of%d is%d\n",1,find(1));
+    printf("the representative of%d is%d\n",3,find(3));
+    printf("the representative of%d is%d\n",5,find(5)); 
+    return 0;
+}
