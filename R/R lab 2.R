@@ -1,3 +1,5 @@
+#load necessary libraries
+libray(dplyr)
 #set seed for reproducibility
 set.seed(123)
 #generate sample data
